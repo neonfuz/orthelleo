@@ -1,0 +1,32 @@
+.Board {
+    display: grid;
+    margin: 0 auto;
+
+    background: #4D4;
+    grid-gap: .4em;
+    border: solid #4D4 .4em;
+
+    grid-auto-columns: min-content;
+    width: min-content;
+}
+
+.Cell {
+    width: 5rem;
+    height: 5rem;
+
+    background: green;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Piece-0 { }
+.Piece-W { background: white; }
+.Piece-B { background: black; }
+.Piece-W, .Piece-B {
+    width: 4em;
+    height: 4em;
+    border-radius: 2em;
+}

@@ -2,20 +2,23 @@
 
 // Piece constants
 const W = 'W', B = 'B';
-export { W, B };
+const pieceNames = {W: 'white', B: 'black'};
+export { W, B, pieceNames };
 
 const defaultState = {
-  turn: 'white',
-  board: [
-    [ , , , , , , , ],
-    [ , , , , , , , ],
-    [ , , , , , , , ],
-    [ , , ,W,B, , , ],
-    [ , , ,B,W, , , ],
-    [ , , , , , , , ],
-    [ , , , , , , , ],
-    [ , , , , , , , ],
-  ],
+  othello: {
+    turn: W,
+    board: [
+      [0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0],
+      [0,0,0,W,B,0,0,0],
+      [0,0,0,B,W,0,0,0],
+      [0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0],
+    ],
+  }
 };
 
 function reducer(state = defaultState, action) {
