@@ -4,7 +4,7 @@ import './style.css';
 
 import Board from './Board';
 
-import { pieceNames } from '../../reducer';
+import { pieceNames } from './reducer';
 
 const Othello = ({turn, board}) => (
   <div className="Othello">
