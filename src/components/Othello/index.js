@@ -6,12 +6,15 @@ import Board from './Board';
 import { tryPlace } from './actions';
 import { pieceNames } from './reducer';
 
-const Othello = ({turn, board, tryPlace}) => (
+const Othello = ({turn, board, tryPlace, score}) => (
   <div className="Othello">
     <div style={{padding: '1em'}}>
       Current turn: {pieceNames[turn] || ''}
     </div>
     <Board board={board} onClickCell={tryPlace} />
+    <div style={{padding: '1em'}}>
+      black: {score.B}, white: {score.W}, remaining: {score.remaining}
+    </div>
   </div>
 );
 

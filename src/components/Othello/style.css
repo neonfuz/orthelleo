@@ -1,3 +1,8 @@
+.Othello {
+    display: grid;
+    grid-template-columns: 1fr min-content 1fr;
+}
+
 .Board {
     display: grid;
     margin: 0 auto;
