@@ -3,6 +3,7 @@ import {
   flatten,
   lensPath,
   lensProp,
+  maxBy,
   over,
   set,
   view,
@@ -100,11 +101,20 @@ function getPossibleMoves(board, player) {
   return Object.freeze(possibleMoves);
 }
 
+const randInt = max => Math.floor(Math.random() * max);
+
 function randomPlace(board, player) {
- const possibleMoves = getPossibleMoves(board, player);
-  if (!possibleMoves.length)
-    return board;
-  return possibleMoves[Math.floor(Math.random()*possibleMoves.length)].board;
+  const possibleMoves = getPossibleMoves(board, player);
+  return (possibleMoves.length === 0) ? (
+    board
+  ) : (
+    possibleMoves[randInt(possibleMoves.length)].board
+  );
+}
+
+function greedyPlace(board, player) {
+  const possibleMoves = getPossibleMoves(board, player);
+  return reduce(maxBy(calcScore), possibleMoves).board;
 }
 
 function reducer(state = defaultOthello, action) {
@@ -121,7 +131,7 @@ function reducer(state = defaultOthello, action) {
         score: calcScore(newBoard),
       };
     case AI_PLACE:
-      const newBoard2 = randomPlace(board, turn)
+      const newBoard2 = greedyPlace(board, turn)
       if (board === newBoard2)
         return state;
       return {
