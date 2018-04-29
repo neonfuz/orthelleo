@@ -27,11 +27,11 @@
     justify-content: center;
 }
 
-.Piece-0 { }
-.Piece-W { background: white; }
-.Piece-B { background: black; }
+.Piece-W { background-image: url("white1.png"); }
+.Piece-B { background-image: url("black1.png"); }
 .Piece-W, .Piece-B {
-    width: 4em;
-    height: 4em;
-    border-radius: 2em;
+    width:  4.6em;
+    height: 4.6em;
+    background-size: cover;
 }
+
