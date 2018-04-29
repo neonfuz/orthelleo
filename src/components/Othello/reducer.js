@@ -1,10 +1,15 @@
 import {
+  memoizeWith,
   add,
+  assoc,
   flatten,
   lensPath,
   lensProp,
+  map,
   maxBy,
   over,
+  path,
+  reduce,
   set,
   view,
   xprod,
@@ -117,6 +122,21 @@ function greedyPlace(board, player) {
   return reduce(maxBy(calcScore), possibleMoves).board;
 }
 
+const addScore = map(move=>assoc('score', calcScore(move.board), move));
+
+const flatMemo = memoizeWith(arr => arr.join(''));
+
+const smartPlace = flatMemo((board, player, origPlayer=player, depth=0) => {
+  const possibleMoves = addScore(getPossibleMoves(board, player));
+  if (possibleMoves.length === 0)
+    return board;
+  const deepMoves = (depth > 65) ? possibleMoves : (
+    possibleMoves.map(move=>smartPlace(board, otherPlayer[player], origPlayer || player, depth+1))
+  );
+  const best = deepMoves.reduce(maxBy(path(['score', origPlayer || player])));
+  return depth === 0 ? best.board : best;
+});
+
 function reducer(state = defaultOthello, action) {
   const { turn, board } = state;
   switch (action && action.type) {
@@ -131,7 +151,7 @@ function reducer(state = defaultOthello, action) {
         score: calcScore(newBoard),
       };
     case AI_PLACE:
-      const newBoard2 = greedyPlace(board, turn)
+      const newBoard2 = smartPlace(board, turn)
       if (board === newBoard2)
         return state;
       return {
