@@ -10,7 +10,10 @@ import {
   zipWith,
 } from 'ramda';
 
-import { TRY_PLACE } from './actions';
+import {
+  AI_PLACE,
+  TRY_PLACE,
+} from './actions';
 
 /* eslint no-sparse-arrays: 0 */
 
@@ -85,6 +88,25 @@ function tryPlace(board, player, pos) {
   );
 }
 
+const allMoves = xprod([0,1,2,3,4,5,6,7], [0,1,2,3,4,5,6,7]);
+
+function getPossibleMoves(board, player) {
+  let possibleMoves = [];
+  allMoves.forEach(pos => {
+    const b = tryPlace(board, player, pos);
+    if (b !== board)
+      possibleMoves.push({move: pos, board: b});
+  });
+  return Object.freeze(possibleMoves);
+}
+
+function randomPlace(board, player) {
+ const possibleMoves = getPossibleMoves(board, player);
+  if (!possibleMoves.length)
+    return board;
+  return possibleMoves[Math.floor(Math.random()*possibleMoves.length)].board;
+}
+
 function reducer(state = defaultOthello, action) {
   const { turn, board } = state;
   switch (action && action.type) {
@@ -97,6 +119,15 @@ function reducer(state = defaultOthello, action) {
         turn: otherPlayer[turn],
         board: newBoard,
         score: calcScore(newBoard),
+      };
+    case AI_PLACE:
+      const newBoard2 = randomPlace(board, turn)
+      if (board === newBoard2)
+        return state;
+      return {
+        turn: otherPlayer[turn],
+        board: newBoard2,
+        score: calcScore(newBoard2),
       };
     default:
       return state;
