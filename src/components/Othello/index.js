@@ -8,14 +8,18 @@ import { pieceNames } from './reducer';
 
 const Othello = ({turn, board, aiPlace, tryPlace, score}) => (
   <div className="Othello">
-    <div style={{padding: '1em'}}>
-      Current turn: {pieceNames[turn] || ''}
-    </div>
     <Board board={board} onClickCell={tryPlace} />
-    <div style={{padding: '1em'}}>
-      black: {score.B}, white: {score.W}, remaining: {score.remaining}
+    <div className="Othello-sidebar">
+      <div className="sidebar-turn">
+        Current turn: {pieceNames[turn] || ''}
+      </div>
+      <div className="score-B">black: {score.B}</div>
+      <div className="score-W">white: {score.W}</div>
+      <div className="score-0">remaining: {score.remaining}</div>
+      <div className="sidebar-buttons">
+        <button onClick={aiPlace}>AI move</button>
+      </div>
     </div>
-    <button onClick={aiPlace}>AI move</button>
   </div>
 );
 
