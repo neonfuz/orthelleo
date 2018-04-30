@@ -30,7 +30,7 @@ const otherPlayer = {W: B, B: W};
 export { W, B, pieceNames, otherPlayer };
 
 const defaultOthello = {
-  turn: W,
+  turn: B,
   board: [
     [0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0],
@@ -96,15 +96,18 @@ function tryPlace(board, player, pos) {
 
 const allMoves = xprod([0,1,2,3,4,5,6,7], [0,1,2,3,4,5,6,7]);
 
-function getPossibleMoves(board, player) {
-  let possibleMoves = [];
-  allMoves.forEach(pos => {
-    const b = tryPlace(board, player, pos);
-    if (b !== board)
-      possibleMoves.push({move: pos, board: b});
-  });
-  return Object.freeze(possibleMoves);
-}
+const getPossibleMoves = memoizeWith(
+  (b, p) => JSON.stringify({b,p}),
+  (board, player) => {
+    let possibleMoves = [];
+    allMoves.forEach(pos => {
+      const b = tryPlace(board, player, pos);
+      if (b !== board)
+        possibleMoves.push({move: pos, board: b});
+    });
+    return Object.freeze(possibleMoves);
+  }
+);
 
 const randInt = max => Math.floor(Math.random() * max);
 
@@ -146,16 +149,18 @@ function reducer(state = defaultOthello, action) {
       if (board === newBoard)
         return state;
       return {
-        turn: otherPlayer[turn],
+        turn: getPossibleMoves(newBoard, otherPlayer[turn]).length ?
+              otherPlayer[turn] : turn,
         board: newBoard,
         score: calcScore(newBoard),
       };
     case AI_PLACE:
-      const newBoard2 = smartPlace(board, turn)
+      const newBoard2 = turn === B ? smartPlace(board, turn) : randomPlace(board, turn);
       if (board === newBoard2)
         return state;
       return {
-        turn: otherPlayer[turn],
+        turn: getPossibleMoves(newBoard, otherPlayer[turn]).length === 0 ?
+              otherPlayer[turn] : turn,
         board: newBoard2,
         score: calcScore(newBoard2),
       };
