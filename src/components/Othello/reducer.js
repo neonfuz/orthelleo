@@ -1,5 +1,4 @@
 import {
-  memoizeWith,
   add,
   assoc,
   flatten,
@@ -7,6 +6,7 @@ import {
   lensProp,
   map,
   maxBy,
+  memoizeWith,
   over,
   path,
   reduce,
