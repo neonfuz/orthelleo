@@ -1,3 +1,9 @@
+# Orthelleo
+
+This is an implementation of the game Reversi. Live PWA [HERE](https://neonfuz.github.io/orthelleo).
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
