@@ -19,6 +19,7 @@ import {
 import {
   AI_PLACE,
   TRY_PLACE,
+  RESTART,
 } from './actions';
 
 /* eslint no-sparse-arrays: 0 */
@@ -164,6 +165,8 @@ function reducer(state = defaultOthello, action) {
         board: newBoard2,
         score: calcScore(newBoard2),
       };
+    case RESTART:
+      return defaultOthello;
     default:
       return state;
   }

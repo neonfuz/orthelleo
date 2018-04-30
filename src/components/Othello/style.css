@@ -35,6 +35,7 @@
 
 .Othello button {
     padding: 1em;
+    margin: 0 .2em;
     background: white;
     color: black;
     border: solid black .2em;

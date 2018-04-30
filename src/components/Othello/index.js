@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import './style.css';
 
 import Board from './Board';
-import { aiPlace, tryPlace } from './actions';
+import { aiPlace, tryPlace, restart } from './actions';
 import { pieceNames } from './reducer';
 
-const Othello = ({turn, board, aiPlace, tryPlace, score}) => (
+const Othello = ({turn, board, aiPlace, tryPlace, restart, score}) => (
   <div className="Othello">
     <Board board={board} onClickCell={tryPlace} />
     <div className="Othello-sidebar">
@@ -18,6 +18,7 @@ const Othello = ({turn, board, aiPlace, tryPlace, score}) => (
       <div className="score-0">remaining: {score.remaining}</div>
       <div className="sidebar-buttons">
         <button onClick={aiPlace}>AI move</button>
+        <button onClick={restart}>Restart</button>
       </div>
     </div>
   </div>
@@ -25,5 +26,5 @@ const Othello = ({turn, board, aiPlace, tryPlace, score}) => (
 
 export default connect(
   (state) => (state.othello),
-  { tryPlace, aiPlace }
+  { tryPlace, aiPlace, restart }
 )(Othello);
