@@ -1,0 +1,9 @@
+
+.Home {
+    background: #186a3b;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    font-size: 5em;
+}
+.Home a:any-link { color: white; }
