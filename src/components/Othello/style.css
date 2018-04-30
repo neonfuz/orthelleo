@@ -60,7 +60,7 @@
 }
 
 .Cell {
-    background: green;
+    background: #186a3b;
     border-radius: 1em;
     display: flex;
     align-items: center;
