@@ -8,7 +8,7 @@ import Othello from '../Othello';
 class App extends Component {
   render() {
     return (
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <div className="App">
           <Route exact path="/" component={Home} />
           <Route path="/play" component={Othello} />
