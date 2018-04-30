@@ -46,9 +46,9 @@
     display: grid;
     margin: 0 auto;
 
-    background: #4D4;
+    background:   #242;
+    border: solid #242 .4em;
     grid-gap: .4em;
-    border: solid #4D4 .4em;
     box-sizing: border-box;
 
     grid-auto-columns: 1fr;
@@ -61,6 +61,7 @@
 
 .Cell {
     background: green;
+    border-radius: 1em;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -69,8 +70,8 @@
 .Piece-W { background-image: url("white1.png"); }
 .Piece-B { background-image: url("black1.png"); }
 .Piece-W, .Piece-B {
-    width:  80%;
-    height: 80%;
+    width:  90%;
+    height: 90%;
     background-size: cover;
 }
 
